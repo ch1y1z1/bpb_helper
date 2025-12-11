@@ -1,6 +1,6 @@
-use std::fs::OpenOptions;
 use crate::pck;
 use anyhow::{Context, Result};
+use std::fs::OpenOptions;
 
 /// 修改指定路径 pck 文件
 pub fn tweak_game_gde(file_path: &str) -> Result<()> {
@@ -17,12 +17,7 @@ pub fn tweak_game_gde(file_path: &str) -> Result<()> {
     // });
 
     let replace_content = include_bytes!("../assets/Game.gde");
-    pck::replace_file_in_pck(
-        &mut file,
-        &index,
-        "res://Core/Game.gde",
-        replace_content,
-    )?;
+    pck::replace_file_in_pck(&mut file, &index, "res://Core/Game.gde", replace_content)?;
 
     let replace_content = include_bytes!("../assets/ItemLibrary.gde");
     pck::replace_file_in_pck(
@@ -31,6 +26,6 @@ pub fn tweak_game_gde(file_path: &str) -> Result<()> {
         "res://Interface/ItemLibrary/ItemLibrary.gde",
         replace_content,
     )?;
-    
+
     Ok(())
 }

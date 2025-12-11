@@ -7,7 +7,6 @@ use std::{
 use anyhow::{Context, Result};
 use binrw::{BinRead, BinWrite};
 
-
 #[derive(BinRead, Debug)]
 #[br(
     magic = b"GDPC",
@@ -41,7 +40,9 @@ pub struct RawFileEntry {
 
 impl RawFileEntry {
     fn path(&self) -> Result<String> {
-        Ok(String::from_utf8(self.path_bytes.clone())?.trim_end_matches('\0').to_string())
+        Ok(String::from_utf8(self.path_bytes.clone())?
+            .trim_end_matches('\0')
+            .to_string())
     }
 }
 
@@ -57,7 +58,9 @@ pub fn read_header_and_index(file: &mut File) -> Result<(Header, HashMap<String,
     let mut index = HashMap::with_capacity(header.file_count as usize);
 
     for _ in 0..header.file_count {
-        let entry_offset = reader.stream_position().context("failed to get entry offset")?;
+        let entry_offset = reader
+            .stream_position()
+            .context("failed to get entry offset")?;
         let entry: RawFileEntry =
             RawFileEntry::read(&mut reader).context("failed to read RawFileEntry")?;
 

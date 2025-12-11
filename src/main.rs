@@ -92,7 +92,12 @@ impl Render for RootView {
                             h_flex()
                                 .justify_between()
                                 .items_center()
-                                .child(div().text_lg().font_semibold().child("Backpack Battles 修改工具"))
+                                .child(
+                                    div()
+                                        .text_lg()
+                                        .font_semibold()
+                                        .child("Backpack Battles 修改工具"),
+                                )
                                 .child(h_flex().gap_2().children(self.default_hint(cx))),
                         )
                         .child(

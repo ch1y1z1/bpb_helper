@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://Assets/Paper1.png" type="Texture" id=1]
 [ext_resource path="res://Interface/FocusGrabbingControl.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Items/Particles/SubtractiveCanvasItem.material" type="Material" id=17]
 [ext_resource path="res://Interface/ScrollbarTheme.tres" type="Theme" id=18]
 [ext_resource path="res://Interface/BuildHistory/RoundResultCursor.png" type="Texture" id=19]
+[ext_resource path="res://Interface/LobbyUI.png" type="Texture" id=20]
 [ext_resource path="res://Assets/Fonts/LibreBaskerville-Bold.ttf" type="DynamicFontData" id=21]
 [ext_resource path="res://Interface/Tooltips/ImageFont.tres" type="BitmapFont" id=22]
 [ext_resource path="res://Interface/HintButton.png" type="Texture" id=23]
@@ -27,6 +28,9 @@
 [ext_resource path="res://Interface/DraggableScrollContainer.gd" type="Script" id=26]
 [ext_resource path="res://Interface/BuildHistory/BattleButton.png" type="Texture" id=27]
 [ext_resource path="res://Interface/BuildHistory/BattleButton_hovered.png" type="Texture" id=28]
+[ext_resource path="res://Assets/SurvivalBones.png" type="Texture" id=29]
+[ext_resource path="res://Assets/Icon_Lightning.png" type="Texture" id=30]
+[ext_resource path="res://Assets/Star.png" type="Texture" id=31]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Close"
@@ -132,6 +136,35 @@ outline_color = Color( 0.235294, 0.14902, 0.113725, 1 )
 use_filter = true
 extra_spacing_bottom = -8
 font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 60
+outline_size = 6
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 21 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 51
+outline_size = 6
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 21 )
+
+[sub_resource type="StyleBoxFlat" id=207]
+content_margin_left = 8.0
+content_margin_right = 10.0
+content_margin_top = 0.0
+content_margin_bottom = 0.0
+bg_color = Color( 0.376471, 0.227451, 0.160784, 0.305882 )
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 4
+border_color = Color( 0.109804, 0.0666667, 0.0470588, 0.819608 )
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [node name="BuildHistory" type="Node2D"]
 pause_mode = 2
@@ -260,10 +293,12 @@ script = ExtResource( 13 )
 showOnHover = NodePath("../Battle")
 
 [node name="SaveToFightButton" type="TextureButton" parent="Build"]
-margin_left = 1500.0
-margin_top = 110.0
-margin_right = 1550.0
-margin_bottom = 160.0
+visible = false
+margin_left = 1205.0
+margin_top = 939.0
+margin_right = 1255.0
+margin_bottom = 989.0
+rect_pivot_offset = Vector2( -2168, 282 )
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource( 27 )
 texture_hover = ExtResource( 28 )
@@ -273,10 +308,11 @@ script = ExtResource( 13 )
 showOnHover = NodePath("../Battle")
 
 [node name="FightWithSavedButton" type="TextureButton" parent="Build"]
-margin_left = 1400.0
-margin_top = 110.0
-margin_right = 1450.0
-margin_bottom = 160.0
+visible = false
+margin_left = 1128.0
+margin_top = 934.0
+margin_right = 1178.0
+margin_bottom = 984.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource( 27 )
 texture_hover = ExtResource( 28 )
@@ -432,9 +468,171 @@ align = 1
 script = ExtResource( 10 )
 translationKey = "HINT_HistoryReset"
 
+[node name="CopyBuildUI" type="Node2D" parent="."]
+
+[node name="CopyBuildButton" type="TextureButton" parent="CopyBuildUI"]
+margin_left = 1352.0
+margin_top = 69.0
+margin_right = 1432.0
+margin_bottom = 149.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 31 )
+expand = true
+script = ExtResource( 13 )
+showOnHover = NodePath("../Battle")
+
+[node name="FightWithClipBoardButton" type="TextureButton" parent="CopyBuildUI"]
+margin_left = 1505.0
+margin_top = 71.0
+margin_right = 1585.0
+margin_bottom = 151.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 30 )
+expand = true
+script = ExtResource( 13 )
+showOnHover = NodePath("../Battle")
+
+[node name="CopyPopUI" type="Node2D" parent="CopyBuildUI"]
+visible = false
+
+[node name="Panel" type="Sprite" parent="CopyBuildUI/CopyPopUI"]
+position = Vector2( 1022, 122 )
+scale = Vector2( 0.398004, 0.390939 )
+texture = ExtResource( 20 )
+
+[node name="BuildString" type="Label" parent="CopyBuildUI/CopyPopUI"]
+margin_left = 902.0
+margin_top = 76.0
+margin_right = 1145.0
+margin_bottom = 145.0
+grow_horizontal = 2
+custom_colors/font_color = Color( 1, 0.92549, 0.831373, 1 )
+custom_colors/font_color_shadow = Color( 0.235294, 0.14902, 0.113725, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_fonts/font = SubResource( 9 )
+text = "01"
+align = 1
+script = ExtResource( 10 )
+
+[node name="CloseButton" type="TextureButton" parent="CopyBuildUI/CopyPopUI"]
+margin_left = 1142.0
+margin_top = 168.0
+margin_right = 1192.0
+margin_bottom = 218.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 29 )
+expand = true
+script = ExtResource( 13 )
+showOnHover = NodePath("../Battle")
+
+[node name="FightPopUI" type="Node2D" parent="CopyBuildUI"]
+visible = false
+
+[node name="Panel" type="Sprite" parent="CopyBuildUI/FightPopUI"]
+position = Vector2( 1022, 122 )
+scale = Vector2( 0.398004, 0.390939 )
+texture = ExtResource( 20 )
+
+[node name="CloseButton" type="TextureButton" parent="CopyBuildUI/FightPopUI"]
+margin_left = 1142.0
+margin_top = 168.0
+margin_right = 1192.0
+margin_bottom = 218.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 29 )
+expand = true
+script = ExtResource( 13 )
+showOnHover = NodePath("../Battle")
+
+[node name="TextEdit__not_used" type="TextEdit" parent="CopyBuildUI/FightPopUI"]
+visible = false
+margin_left = 874.0
+margin_top = 83.0
+margin_right = 1098.0
+margin_bottom = 185.0
+custom_fonts/font = SubResource( 10 )
+text = "01"
+
+[node name="FightButton" type="TextureButton" parent="CopyBuildUI/FightPopUI"]
+margin_left = 1138.0
+margin_top = 65.0
+margin_right = 1198.0
+margin_bottom = 125.0
+rect_pivot_offset = Vector2( -2687, -121 )
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 27 )
+texture_hover = ExtResource( 28 )
+texture_disabled = ExtResource( 12 )
+expand = true
+stretch_mode = 5
+script = ExtResource( 13 )
+showOnHover = NodePath("../Battle")
+
+[node name="TextEdit_not_used2" type="LineEdit" parent="CopyBuildUI/FightPopUI"]
+visible = false
+margin_left = 865.0
+margin_top = 100.0
+margin_right = 1120.0
+margin_bottom = 176.0
+mouse_default_cursor_shape = 2
+custom_colors/selection_color = Color( 1, 0.92549, 0.831373, 1 )
+custom_colors/cursor_color = Color( 1, 0.92549, 0.831373, 1 )
+custom_colors/clear_button_color_pressed = Color( 1, 0.890196, 0, 1 )
+custom_colors/font_color_selected = Color( 1, 0.890196, 0.0784314, 1 )
+custom_colors/font_color = Color( 1, 0.92549, 0.831373, 1 )
+custom_colors/clear_button_color = Color( 1, 0.92549, 0.831373, 1 )
+custom_constants/minimum_spaces = 1
+custom_fonts/font = ExtResource( 6 )
+custom_styles/read_only = ExtResource( 3 )
+custom_styles/focus = ExtResource( 3 )
+custom_styles/normal = ExtResource( 3 )
+align = 1
+max_length = 22
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+clear_button_enabled = true
+middle_mouse_paste_enabled = false
+deselect_on_focus_loss_enabled = false
+placeholder_text = "code..."
+placeholder_alpha = 0.858
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="TextEdit" type="LineEdit" parent="CopyBuildUI/FightPopUI"]
+margin_left = 853.0
+margin_top = 91.0
+margin_right = 1117.0
+margin_bottom = 187.0
+mouse_default_cursor_shape = 2
+custom_colors/selection_color = Color( 1, 0.92549, 0.831373, 1 )
+custom_colors/cursor_color = Color( 1, 0.92549, 0.831373, 1 )
+custom_colors/clear_button_color_pressed = Color( 1, 0.890196, 0, 1 )
+custom_colors/font_color_selected = Color( 1, 0.890196, 0.0784314, 1 )
+custom_colors/font_color = Color( 1, 0.92549, 0.831373, 1 )
+custom_colors/clear_button_color = Color( 1, 0.92549, 0.831373, 1 )
+custom_constants/minimum_spaces = 1
+custom_fonts/font = SubResource( 9 )
+custom_styles/read_only = SubResource( 207 )
+custom_styles/focus = SubResource( 207 )
+custom_styles/normal = SubResource( 207 )
+text = "01"
+align = 1
+max_length = 5
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+clear_button_enabled = true
+middle_mouse_paste_enabled = false
+deselect_on_focus_loss_enabled = false
+
 [connection signal="pressed" from="Build/PreviousRound" to="." method="onPreviousRoundPressed"]
 [connection signal="pressed" from="Build/NextRound" to="." method="onNextRoundPressed"]
 [connection signal="pressed" from="Build/FightButton" to="." method="fightBuild"]
 [connection signal="pressed" from="Build/SaveToFightButton" to="." method="saveCurrentBuild"]
 [connection signal="pressed" from="Build/FightWithSavedButton" to="." method="fightBuildWithSaved"]
 [connection signal="pressed" from="CloseButton" to="." method="close"]
+[connection signal="pressed" from="CopyBuildUI/CopyBuildButton" to="." method="onCopyBuildPressed"]
+[connection signal="pressed" from="CopyBuildUI/FightWithClipBoardButton" to="." method="fightBuildWithClipboard"]
+[connection signal="pressed" from="CopyBuildUI/CopyPopUI/CloseButton" to="." method="onCopyPopupClosePressed"]
+[connection signal="pressed" from="CopyBuildUI/FightPopUI/CloseButton" to="." method="onCopyPopupClosePressed"]
+[connection signal="pressed" from="CopyBuildUI/FightPopUI/FightButton" to="." method="onFightPopupFightPressed"]

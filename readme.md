@@ -36,3 +36,5 @@
 ## 参考视频
 
 [安装教程](https://www.bilibili.com/video/BV1MFmUBeEK2)
+
+[斗蛐蛐功能演示](https://www.bilibili.com/video/BV1ngq5BYE79)

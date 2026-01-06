@@ -183,6 +183,9 @@ impl RootView {
             }
             Err(err) => {
                 let message = err.to_string();
+
+                println!("{:?}", err);
+
                 window.open_dialog(cx, move |dialog, _, _| {
                     dialog.title("操作失败").alert().child(message.clone())
                 });
